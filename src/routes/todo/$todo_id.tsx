@@ -15,7 +15,7 @@ interface Todo {
 const getTodo = async (id: number): Promise<Todo> => {
   try {
     const request = await axios.get<Todo>(
-      `https://jsonplaceholder.typicode.com/todos1/${id}`,
+      `https://jsonplaceholder.typicode.com/todos/${id}`,
     );
     return request.data;
   } catch (err) {
