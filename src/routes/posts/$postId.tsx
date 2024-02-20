@@ -2,21 +2,21 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import axios from "axios";
 
 type PageParams = {
-  page: number;
+  page?: number;
 };
 
-interface Todo {
-  userId: number;
+interface Post {
   id: number;
   title: string;
-  completed: boolean;
+  body: string;
+  userId: number;
+  tags: string[];
+  reactions: number;
 }
 
-const getTodo = async (id: number): Promise<Todo> => {
+const getPost = async (id: number): Promise<Post> => {
   try {
-    const request = await axios.get<Todo>(
-      `https://jsonplaceholder.typicode.com/todos/${id}`,
-    );
+    const request = await axios.get<Post>(`https://dummyjson.com/posts/${id}`);
     return request.data;
   } catch (err) {
     if (err instanceof Error || axios.isAxiosError(err)) {
@@ -27,9 +27,9 @@ const getTodo = async (id: number): Promise<Todo> => {
   }
 };
 
-export const Route = createFileRoute("/todo/$todo_id")({
-  component: TodoItem,
-  loader: ({ params }) => getTodo(Number(params.todo_id)),
+export const Route = createFileRoute("/posts/$postId")({
+  component: Post,
+  loader: ({ params }) => getPost(Number(params.postId)),
   errorComponent: ({ error }) => {
     return <div>404: {(error as Error).message}</div>;
   },
@@ -40,19 +40,18 @@ export const Route = createFileRoute("/todo/$todo_id")({
   },
 });
 
-function TodoItem() {
-  const { todo_id } = Route.useParams();
+function Post() {
+  const { postId } = Route.useParams();
   const { page } = Route.useSearch();
   const data = Route.useLoaderData();
 
   return (
     <div>
-      <h1>Todo ID Index Page: {todo_id}</h1>
-      <Link to={"/"}>Home page</Link>
-      <Link to={"/todo"}>Todo page</Link>
+      <h1>Post ID: {postId}</h1>
+      <Link to={"/posts"}>Posts Page</Link>
       <div>Page: {page}</div>
       <p>Title: {data.title}</p>
-      <p>Completed: {String(data.completed)}</p>
+      <p>Content: {data.body}</p>
     </div>
   );
 }

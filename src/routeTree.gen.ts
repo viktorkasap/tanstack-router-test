@@ -13,13 +13,13 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as TodoTodoidImport } from './routes/todo/$todo_id'
+import { Route as PostsPostIdImport } from './routes/posts/$postId'
 
 // Create Virtual Routes
 
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
-const TodoIndexLazyImport = createFileRoute('/todo/')()
+const PostsIndexLazyImport = createFileRoute('/posts/')()
 
 // Create/Update Routes
 
@@ -33,13 +33,13 @@ const IndexLazyRoute = IndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
-const TodoIndexLazyRoute = TodoIndexLazyImport.update({
-  path: '/todo/',
+const PostsIndexLazyRoute = PostsIndexLazyImport.update({
+  path: '/posts/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/todo/index.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/posts/index.lazy').then((d) => d.Route))
 
-const TodoTodoidRoute = TodoTodoidImport.update({
-  path: '/todo/$todo_id',
+const PostsPostIdRoute = PostsPostIdImport.update({
+  path: '/posts/$postId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -55,12 +55,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutLazyImport
       parentRoute: typeof rootRoute
     }
-    '/todo/$todo_id': {
-      preLoaderRoute: typeof TodoTodoidImport
+    '/posts/$postId': {
+      preLoaderRoute: typeof PostsPostIdImport
       parentRoute: typeof rootRoute
     }
-    '/todo/': {
-      preLoaderRoute: typeof TodoIndexLazyImport
+    '/posts/': {
+      preLoaderRoute: typeof PostsIndexLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -71,8 +71,8 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
   AboutLazyRoute,
-  TodoTodoidRoute,
-  TodoIndexLazyRoute,
+  PostsPostIdRoute,
+  PostsIndexLazyRoute,
 ])
 
 /* prettier-ignore-end */
