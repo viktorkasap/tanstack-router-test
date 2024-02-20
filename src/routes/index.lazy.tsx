@@ -1,13 +1,13 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/")({
-  component: IndexLazy,
+  component: Home,
 });
 
-function IndexLazy() {
+function Home() {
   return (
     <div>
-      <h1>Index Page</h1>
+      <h1>Home Page</h1>
       <Link to={"/about"}>About page</Link>
     </div>
   );

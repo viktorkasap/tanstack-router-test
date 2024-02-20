@@ -14,7 +14,7 @@ interface Post {
   reactions: number;
 }
 
-const getPost = async (id: number): Promise<Post> => {
+const fetchPost = async (id: number): Promise<Post> => {
   try {
     const request = await axios.get<Post>(`https://dummyjson.com/posts/${id}`);
     return request.data;
@@ -29,7 +29,7 @@ const getPost = async (id: number): Promise<Post> => {
 
 export const Route = createFileRoute("/posts/$postId")({
   component: Post,
-  loader: ({ params }) => getPost(Number(params.postId)),
+  loader: ({ params }) => fetchPost(Number(params.postId)),
   errorComponent: ({ error }) => {
     return <div>404: {(error as Error).message}</div>;
   },

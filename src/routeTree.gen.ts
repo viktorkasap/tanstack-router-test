@@ -13,20 +13,23 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as Import } from './routes/*'
 import { Route as PostsPostIdImport } from './routes/posts/$postId'
+import { Route as LayoutsLayoutBImport } from './routes/_layouts/layout-b'
+import { Route as LayoutsLayoutAImport } from './routes/_layouts/layout-a'
 
 // Create Virtual Routes
 
-const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
 const PostsIndexLazyImport = createFileRoute('/posts/')()
+const AboutIndexLazyImport = createFileRoute('/about/')()
 
 // Create/Update Routes
 
-const AboutLazyRoute = AboutLazyImport.update({
-  path: '/about',
+const Route = Import.update({
+  path: '/*',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
+} as any)
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
@@ -38,8 +41,23 @@ const PostsIndexLazyRoute = PostsIndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/posts/index.lazy').then((d) => d.Route))
 
+const AboutIndexLazyRoute = AboutIndexLazyImport.update({
+  path: '/about/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/about/index.lazy').then((d) => d.Route))
+
 const PostsPostIdRoute = PostsPostIdImport.update({
   path: '/posts/$postId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LayoutsLayoutBRoute = LayoutsLayoutBImport.update({
+  id: '/_layouts/layout-b',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LayoutsLayoutARoute = LayoutsLayoutAImport.update({
+  id: '/_layouts/layout-a',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -51,12 +69,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/about': {
-      preLoaderRoute: typeof AboutLazyImport
+    '/*': {
+      preLoaderRoute: typeof Import
+      parentRoute: typeof rootRoute
+    }
+    '/_layouts/layout-a': {
+      preLoaderRoute: typeof LayoutsLayoutAImport
+      parentRoute: typeof rootRoute
+    }
+    '/_layouts/layout-b': {
+      preLoaderRoute: typeof LayoutsLayoutBImport
       parentRoute: typeof rootRoute
     }
     '/posts/$postId': {
       preLoaderRoute: typeof PostsPostIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/about/': {
+      preLoaderRoute: typeof AboutIndexLazyImport
       parentRoute: typeof rootRoute
     }
     '/posts/': {
@@ -70,8 +100,11 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
-  AboutLazyRoute,
+  Route,
+  LayoutsLayoutARoute,
+  LayoutsLayoutBRoute,
   PostsPostIdRoute,
+  AboutIndexLazyRoute,
   PostsIndexLazyRoute,
 ])
 

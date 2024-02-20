@@ -1,8 +1,18 @@
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import { PropsWithChildren } from "react";
 
 export const Route = createRootRoute({
   component: () => (
+    <RootRoute>
+      <Outlet />
+      <TanStackRouterDevtools />
+    </RootRoute>
+  ),
+});
+
+const RootRoute = ({ children }: PropsWithChildren) => {
+  return (
     <div id="root-route">
       <header>
         <nav>
@@ -19,10 +29,7 @@ export const Route = createRootRoute({
           </ul>
         </nav>
       </header>
-      <main>
-        <Outlet />
-      </main>
-      <TanStackRouterDevtools />
+      {children}
     </div>
-  ),
-});
+  );
+};
