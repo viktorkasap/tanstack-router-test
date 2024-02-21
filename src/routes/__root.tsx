@@ -26,6 +26,9 @@ const RootRoute = ({ children }: PropsWithChildren) => {
             <li>
               <Link to={"/posts"}>Posts</Link>
             </li>
+            <li>
+              <Link to={"/todos"}>Todos</Link>
+            </li>
           </ul>
         </nav>
       </header>

@@ -14,6 +14,8 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as Import } from './routes/*'
+import { Route as TodosIndexImport } from './routes/todos/index'
+import { Route as TodosTodoIdImport } from './routes/todos/$todoId'
 import { Route as PostsPostIdImport } from './routes/posts/$postId'
 import { Route as LayoutsLayoutBImport } from './routes/_layouts/layout-b'
 import { Route as LayoutsLayoutAImport } from './routes/_layouts/layout-a'
@@ -45,6 +47,16 @@ const AboutIndexLazyRoute = AboutIndexLazyImport.update({
   path: '/about/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/about/index.lazy').then((d) => d.Route))
+
+const TodosIndexRoute = TodosIndexImport.update({
+  path: '/todos/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/todos/index.lazy').then((d) => d.Route))
+
+const TodosTodoIdRoute = TodosTodoIdImport.update({
+  path: '/todos/$todoId',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const PostsPostIdRoute = PostsPostIdImport.update({
   path: '/posts/$postId',
@@ -85,6 +97,14 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsPostIdImport
       parentRoute: typeof rootRoute
     }
+    '/todos/$todoId': {
+      preLoaderRoute: typeof TodosTodoIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/todos/': {
+      preLoaderRoute: typeof TodosIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/about/': {
       preLoaderRoute: typeof AboutIndexLazyImport
       parentRoute: typeof rootRoute
@@ -104,6 +124,8 @@ export const routeTree = rootRoute.addChildren([
   LayoutsLayoutARoute,
   LayoutsLayoutBRoute,
   PostsPostIdRoute,
+  TodosTodoIdRoute,
+  TodosIndexRoute,
   AboutIndexLazyRoute,
   PostsIndexLazyRoute,
 ])

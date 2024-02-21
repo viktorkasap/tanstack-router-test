@@ -2,6 +2,8 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/posts/")({
   component: Posts,
+  pendingComponent: () => <div>Pending posts ...</div>,
+  notFoundComponent: () => <div>No Found the Posts</div>,
 });
 /*
     fetch('https://dummyjson.com/posts')
