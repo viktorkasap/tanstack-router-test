@@ -1,6 +1,6 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
-export const Route = createLazyFileRoute("/posts/")({
+export const Route = createLazyFileRoute("/posts/route/")({
   component: Posts,
   pendingComponent: () => <div>Pending posts ...</div>,
   notFoundComponent: () => <div>No Found the Posts</div>,
