@@ -23,8 +23,8 @@ import { Route as LayoutsLayoutAImport } from './app/routes/_layouts/layout-a'
 // Create Virtual Routes
 
 const IndexLazyImport = createFileRoute('/')()
+const PostsIndexLazyImport = createFileRoute('/posts/')()
 const AboutIndexLazyImport = createFileRoute('/about/')()
-const PostsRouteIndexLazyImport = createFileRoute('/posts/route/')()
 
 // Create/Update Routes
 
@@ -37,6 +37,13 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./app/routes/index.lazy').then((d) => d.Route))
+
+const PostsIndexLazyRoute = PostsIndexLazyImport.update({
+  path: '/posts/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./app/routes/posts/index.lazy').then((d) => d.Route),
+)
 
 const AboutIndexLazyRoute = AboutIndexLazyImport.update({
   path: '/about/',
@@ -55,7 +62,9 @@ const TodosIndexRoute = TodosIndexImport.update({
 const TodosTodoIdRoute = TodosTodoIdImport.update({
   path: '/todos/$todoId',
   getParentRoute: () => rootRoute,
-} as any)
+} as any).lazy(() =>
+  import('./app/routes/todos/$todoId.lazy').then((d) => d.Route),
+)
 
 const PostsPostIdRoute = PostsPostIdImport.update({
   path: '/posts/$postId',
@@ -71,13 +80,6 @@ const LayoutsLayoutARoute = LayoutsLayoutAImport.update({
   id: '/_layouts/layout-a',
   getParentRoute: () => rootRoute,
 } as any)
-
-const PostsRouteIndexLazyRoute = PostsRouteIndexLazyImport.update({
-  path: '/posts/route/',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./app/routes/posts/route.index.lazy').then((d) => d.Route),
-)
 
 // Populate the FileRoutesByPath interface
 
@@ -115,8 +117,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutIndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/posts/route/': {
-      preLoaderRoute: typeof PostsRouteIndexLazyImport
+    '/posts/': {
+      preLoaderRoute: typeof PostsIndexLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -133,7 +135,7 @@ export const routeTree = rootRoute.addChildren([
   TodosTodoIdRoute,
   TodosIndexRoute,
   AboutIndexLazyRoute,
-  PostsRouteIndexLazyRoute,
+  PostsIndexLazyRoute,
 ])
 
 /* prettier-ignore-end */

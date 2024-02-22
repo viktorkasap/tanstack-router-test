@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import axios from "axios";
 
 interface Todo {
@@ -9,6 +9,11 @@ interface Todo {
 }
 
 const fetchTodo = async (id: number): Promise<Todo> => {
+  // Delay
+  await new Promise((resolve) => {
+    setTimeout(resolve, 3000);
+  });
+
   try {
     const request = await axios.get<Todo>(`https://dummyjson.com/todos/${id}`);
     return request.data;
@@ -22,23 +27,8 @@ const fetchTodo = async (id: number): Promise<Todo> => {
 };
 
 export const Route = createFileRoute("/todos/$todoId")({
-  component: Todo,
   loader: ({ params }) => fetchTodo(Number(params.todoId)),
   errorComponent: ({ error }) => {
     return <div>404: {(error as Error).message}</div>;
   },
 });
-
-function Todo() {
-  const { todoId } = Route.useParams();
-  const data = Route.useLoaderData();
-
-  return (
-    <div>
-      <h1>Todo ID: {todoId}</h1>
-      <Link to={"/todos"}>Todos Page</Link>
-      <p>ID: {data.id}</p>
-      <p>Body: {data.todo}</p>
-    </div>
-  );
-}

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, defer } from "@tanstack/react-router";
 import axios from "axios";
 
 interface Todo {
@@ -34,5 +34,9 @@ const fetchTodos = async (): Promise<Todos> => {
 };
 
 export const Route = createFileRoute("/todos/")({
-  loader: fetchTodos,
+  loader: () => {
+    return {
+      deferredSlowData: defer(fetchTodos()),
+    };
+  },
 });

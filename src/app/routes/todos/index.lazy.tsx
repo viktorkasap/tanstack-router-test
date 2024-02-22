@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Await, createLazyFileRoute, Link } from "@tanstack/react-router";
+import { Suspense } from "react";
 
 interface Todo {
   id: number;
@@ -14,7 +15,7 @@ interface Todos {
   limit: number;
 }
 
-export const Route = createFileRoute("/todos/")({
+export const Route = createLazyFileRoute("/todos/")({
   component: Todos,
   pendingComponent: () => <div>Pending Component Todos ...</div>,
   notFoundComponent: () => <div>Not Found Component Todos ...</div>,
@@ -22,7 +23,7 @@ export const Route = createFileRoute("/todos/")({
 });
 
 function Todos() {
-  const data = Route.useLoaderData();
+  const { deferredSlowData } = Route.useLoaderData();
 
   return (
     <div>
@@ -36,11 +37,19 @@ function Todos() {
         Todo #2
       </Link>
 
-      <ul>
-        {(data as Todos).todos.map((todo) => (
-          <li key={todo.id}>{todo.todo}</li>
-        ))}
-      </ul>
+      <Suspense fallback={<div>Loading Todos...</div>}>
+        <Await promise={deferredSlowData}>
+          {(data) => {
+            return (
+              <ul>
+                {(data as Todos).todos.map((todo) => (
+                  <li key={todo.id}>{todo.todo}</li>
+                ))}
+              </ul>
+            );
+          }}
+        </Await>
+      </Suspense>
     </div>
   );
 }
