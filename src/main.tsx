@@ -6,8 +6,6 @@ import { routeTree } from "./routeTree.gen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-const router = createRouter({ routeTree });
-
 declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router;
@@ -15,6 +13,10 @@ declare module "@tanstack/react-router" {
 }
 
 const queryClient = new QueryClient();
+const router = createRouter({
+  routeTree,
+  defaultPreload: "intent",
+});
 
 ReactDOM.createRoot(document.getElementById("app")!).render(
   <React.StrictMode>

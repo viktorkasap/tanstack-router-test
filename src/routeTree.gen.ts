@@ -15,7 +15,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './app/routes/__root'
 import { Route as LayoutImport } from './app/routes/_layout'
 import { Route as Import } from './app/routes/*'
-import { Route as TodosIndexImport } from './app/routes/todos/index'
 import { Route as TodosTodoIdImport } from './app/routes/todos/$todoId'
 import { Route as PostsPostIdImport } from './app/routes/posts/$postId'
 import { Route as LayoutLayoutBImport } from './app/routes/_layout/layout-b'
@@ -24,6 +23,7 @@ import { Route as LayoutLayoutAImport } from './app/routes/_layout/layout-a'
 // Create Virtual Routes
 
 const IndexLazyImport = createFileRoute('/')()
+const TodosIndexLazyImport = createFileRoute('/todos/')()
 const PostsIndexLazyImport = createFileRoute('/posts/')()
 const AboutIndexLazyImport = createFileRoute('/about/')()
 
@@ -44,6 +44,13 @@ const IndexLazyRoute = IndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./app/routes/index.lazy').then((d) => d.Route))
 
+const TodosIndexLazyRoute = TodosIndexLazyImport.update({
+  path: '/todos/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./app/routes/todos/index.lazy').then((d) => d.Route),
+)
+
 const PostsIndexLazyRoute = PostsIndexLazyImport.update({
   path: '/posts/',
   getParentRoute: () => rootRoute,
@@ -56,13 +63,6 @@ const AboutIndexLazyRoute = AboutIndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
   import('./app/routes/about/index.lazy').then((d) => d.Route),
-)
-
-const TodosIndexRoute = TodosIndexImport.update({
-  path: '/todos/',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./app/routes/todos/index.lazy').then((d) => d.Route),
 )
 
 const TodosTodoIdRoute = TodosTodoIdImport.update({
@@ -119,16 +119,16 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TodosTodoIdImport
       parentRoute: typeof rootRoute
     }
-    '/todos/': {
-      preLoaderRoute: typeof TodosIndexImport
-      parentRoute: typeof rootRoute
-    }
     '/about/': {
       preLoaderRoute: typeof AboutIndexLazyImport
       parentRoute: typeof rootRoute
     }
     '/posts/': {
       preLoaderRoute: typeof PostsIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/todos/': {
+      preLoaderRoute: typeof TodosIndexLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -142,9 +142,9 @@ export const routeTree = rootRoute.addChildren([
   LayoutRoute.addChildren([LayoutLayoutARoute, LayoutLayoutBRoute]),
   PostsPostIdRoute,
   TodosTodoIdRoute,
-  TodosIndexRoute,
   AboutIndexLazyRoute,
   PostsIndexLazyRoute,
+  TodosIndexLazyRoute,
 ])
 
 /* prettier-ignore-end */

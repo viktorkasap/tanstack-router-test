@@ -12,45 +12,24 @@ function RootRoute() {
         <nav>
           <ul>
             <li>
-              <Link to={"/"} preload="intent">
-                Home
-              </Link>
+              <Link to={"/"}>Home</Link>
             </li>
             <li>
-              <Link to={"/about"} preload="intent">
-                About
-              </Link>
+              <Link to={"/about"}>About</Link>
             </li>
             <li>
-              <Link to={"/posts"} preload="intent">
-                Posts
-              </Link>
+              <Link to={"/posts"}>Posts</Link>
             </li>
             <li>
-              <Link to={"/todos"} preload="intent">
-                Todos
-                {/*<MatchRoute to="/todos" pending>*/}
-                {/*  <>Loading.............</>*/}
-                {/*</MatchRoute>*/}
-                {/*<MatchRoute to="/todos" pending>*/}
-                {/*  {(match) => {*/}
-                {/*    console.log("Match", match);*/}
-                {/*    return match ? <>Loading.............</> : <>Todos</>;*/}
-                {/*  }}*/}
-                {/*</MatchRoute>*/}
-              </Link>
+              <Link to={"/todos"}>Todos</Link>
             </li>
             <li>
-              <Link to={"/layout-a"} preload="intent">
-                Layout
-              </Link>
+              <Link to={"/layout-a"}>Layout</Link>
             </li>
             <li>
               {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
               {/* @ts-expect-error */}
-              <Link to={"/123"} preload="intent">
-                No exists
-              </Link>
+              <Link to={"/123"}>No exists</Link>
             </li>
           </ul>
         </nav>
