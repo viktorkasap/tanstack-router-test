@@ -20,12 +20,16 @@ export const TodosList = () => {
     <div>
       <h2>List</h2>
 
-      <ul>
+      <ul className="todoList">
         {data &&
           data.todos.map((todo) => (
             <li key={todo.id}>
-              <Link to="/todos/$todoId" params={{ todoId: `${todo.id}` }}>
-                {todo.todo}
+              <Link
+                to="/todos/$todoId"
+                params={{ todoId: `${todo.id}` }}
+                className="todoLink linkVisited"
+              >
+                {todo.id} | {todo.todo}
               </Link>
             </li>
           ))}

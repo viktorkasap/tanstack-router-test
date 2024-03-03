@@ -13,11 +13,8 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './app/routes/__root'
-import { Route as LayoutImport } from './app/routes/_layout'
 import { Route as Import } from './app/routes/*'
 import { Route as PostsPostIdImport } from './app/routes/posts/$postId'
-import { Route as LayoutLayoutBImport } from './app/routes/_layout/layout-b'
-import { Route as LayoutLayoutAImport } from './app/routes/_layout/layout-a'
 
 // Create Virtual Routes
 
@@ -28,11 +25,6 @@ const AboutIndexLazyImport = createFileRoute('/about/')()
 const TodosTodoIdLazyImport = createFileRoute('/todos/$todoId')()
 
 // Create/Update Routes
-
-const LayoutRoute = LayoutImport.update({
-  id: '/_layout',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const Route = Import.update({
   path: '/*',
@@ -77,16 +69,6 @@ const PostsPostIdRoute = PostsPostIdImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const LayoutLayoutBRoute = LayoutLayoutBImport.update({
-  path: '/layout-b',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutLayoutARoute = LayoutLayoutAImport.update({
-  path: '/layout-a',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -98,18 +80,6 @@ declare module '@tanstack/react-router' {
     '/*': {
       preLoaderRoute: typeof Import
       parentRoute: typeof rootRoute
-    }
-    '/_layout': {
-      preLoaderRoute: typeof LayoutImport
-      parentRoute: typeof rootRoute
-    }
-    '/_layout/layout-a': {
-      preLoaderRoute: typeof LayoutLayoutAImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/layout-b': {
-      preLoaderRoute: typeof LayoutLayoutBImport
-      parentRoute: typeof LayoutImport
     }
     '/posts/$postId': {
       preLoaderRoute: typeof PostsPostIdImport
@@ -139,7 +109,6 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
   Route,
-  LayoutRoute.addChildren([LayoutLayoutARoute, LayoutLayoutBRoute]),
   PostsPostIdRoute,
   TodosTodoIdLazyRoute,
   AboutIndexLazyRoute,
