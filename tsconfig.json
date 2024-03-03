@@ -19,7 +19,7 @@
 
     /* Bundler mode */
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
+    "allowImportingTsExtensions": false, // .tsx, .ts
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,

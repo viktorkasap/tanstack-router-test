@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Todos } from "./types.ts";
+import { Todos } from "./types";
 
 export const fetchTodos = async (): Promise<Todos> => {
   // Delay

@@ -1,22 +1,10 @@
-import { Link } from "@tanstack/react-router";
-import { TodosList } from "@pages/todos/TodosList.tsx";
+import { TodosList } from "@pages/todos/TodosList";
+import { TodosHeader } from "@pages/todos/TodosHeader";
 
 export function Todos() {
   return (
     <div>
-      <h1>Todos</h1>
-
-      <hr />
-
-      <Link to={"/todos/$todoId"} params={{ todoId: "1" }}>
-        Todo #1
-      </Link>
-      {" | "}
-      <Link to={"/todos/$todoId"} params={{ todoId: "1" }}>
-        Todo #2
-      </Link>
-
-      <hr />
+      <TodosHeader />
       <TodosList />
     </div>
   );

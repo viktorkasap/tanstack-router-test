@@ -1,30 +1,35 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchTodos } from "./fetch-todos.ts";
+import { useTodos } from "@pages/todos/use-todos";
+import { Link } from "@tanstack/react-router";
 
 export const TodosList = () => {
-  const todosQuery = useQuery({
-    queryKey: ["todos"],
-    queryFn: fetchTodos,
-    retry: 0,
-  });
+  const { data, isError, error, isLoading } = useTodos();
 
-  const todos = todosQuery.data;
-
-  if (todosQuery.isError) {
-    return <>Error: {todosQuery.error}</>;
+  if (isError) {
+    return (
+      <p>
+        Error: <>{error}</>
+      </p>
+    );
   }
 
-  if (todosQuery.isLoading) {
-    return <>Loading Todos List ...</>;
+  if (isLoading) {
+    return <p>Loading Todos List ...</p>;
   }
 
   return (
-    <>
+    <div>
       <h2>List</h2>
 
       <ul>
-        {todos && todos.todos.map((todo) => <li key={todo.id}>{todo.todo}</li>)}
+        {data &&
+          data.todos.map((todo) => (
+            <li key={todo.id}>
+              <Link to="/todos/$todoId" params={{ todoId: `${todo.id}` }}>
+                {todo.todo}
+              </Link>
+            </li>
+          ))}
       </ul>
-    </>
+    </div>
   );
 };
