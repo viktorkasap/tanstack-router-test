@@ -12,9 +12,9 @@ import { createFileRoute } from '@tanstack/react-router'
 
 // Import Routes
 
-import { Route as rootRoute } from './app/routes/__root'
-import { Route as Import } from './app/routes/*'
-import { Route as PostsPostIdImport } from './app/routes/posts/$postId'
+import { Route as rootRoute } from './../routes/__root'
+import { Route as Import } from './../routes/*'
+import { Route as PostsPostIdImport } from './../routes/posts/$postId'
 
 // Create Virtual Routes
 
@@ -34,34 +34,34 @@ const Route = Import.update({
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./app/routes/index.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./../routes/index.lazy').then((d) => d.Route))
 
 const TodosIndexLazyRoute = TodosIndexLazyImport.update({
   path: '/todos/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
-  import('./app/routes/todos/index.lazy').then((d) => d.Route),
+  import('./../routes/todos/index.lazy').then((d) => d.Route),
 )
 
 const PostsIndexLazyRoute = PostsIndexLazyImport.update({
   path: '/posts/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
-  import('./app/routes/posts/index.lazy').then((d) => d.Route),
+  import('./../routes/posts/index.lazy').then((d) => d.Route),
 )
 
 const AboutIndexLazyRoute = AboutIndexLazyImport.update({
   path: '/about/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
-  import('./app/routes/about/index.lazy').then((d) => d.Route),
+  import('./../routes/about/index.lazy').then((d) => d.Route),
 )
 
 const TodosTodoIdLazyRoute = TodosTodoIdLazyImport.update({
   path: '/todos/$todoId',
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
-  import('./app/routes/todos/$todoId.lazy').then((d) => d.Route),
+  import('./../routes/todos/$todoId.lazy').then((d) => d.Route),
 )
 
 const PostsPostIdRoute = PostsPostIdImport.update({
