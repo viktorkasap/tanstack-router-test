@@ -1,5 +1,6 @@
-import { useTodo } from "@pages/todo/use-todo";
-import { TodoId } from "@pages/todo/types";
+import { TodoId } from "@shared/types";
+
+import { useTodo } from "./hooks";
 
 interface TodoBodyProps {
   todoId: TodoId;

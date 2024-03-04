@@ -1,5 +1,6 @@
 import axios from "axios";
-import { Todo, TodoId } from "./types";
+
+import { Todo, TodoId } from "@shared/types";
 
 interface FetchTodo {
   todoId: TodoId;

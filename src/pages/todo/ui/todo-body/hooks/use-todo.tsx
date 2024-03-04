@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchTodo } from "./fetch-todo";
-import { TodoId } from "./types";
+
+import { TodoId } from "@shared/types";
+
+import { fetchTodo } from "../api/fetch-todo";
 
 export const useTodo = ({ todoId }: { todoId: TodoId }) => {
   return useQuery({

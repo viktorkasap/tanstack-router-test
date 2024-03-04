@@ -1,5 +1,4 @@
-import { TodosList } from "@pages/todos/TodosList";
-import { TodosHeader } from "@pages/todos/TodosHeader";
+import { TodosHeader, TodosList } from "./ui";
 
 export function Todos() {
   return (

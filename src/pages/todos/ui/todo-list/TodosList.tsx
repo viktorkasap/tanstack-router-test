@@ -1,5 +1,6 @@
-import { useTodos } from "@pages/todos/use-todos";
 import { Link } from "@tanstack/react-router";
+
+import { useTodos } from "./hooks";
 
 export const TodosList = () => {
   const { data, isError, error, isLoading } = useTodos();

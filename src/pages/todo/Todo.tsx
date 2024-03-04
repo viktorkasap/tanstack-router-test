@@ -1,7 +1,6 @@
-import { TodoId } from "./types";
-import { TodoHeader } from "./TodoHeader";
-import { TodoBody } from "./TodoBody";
-import { TodoFooter } from "./TodoFooter";
+import { TodoId } from "@shared/types";
+
+import { TodoBody, TodoFooter, TodoHeader } from "./ui";
 
 interface TodoProps {
   todoId: TodoId;

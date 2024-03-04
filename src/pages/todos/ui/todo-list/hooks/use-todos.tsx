@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchTodos } from "@pages/todos/fetch-todos";
+
+import { fetchTodos } from "../api";
 
 export const useTodos = () => {
   return useQuery({
