@@ -1,14 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+
+import { NotFound } from "@pages";
 
 export const Route = createFileRoute("/*")({
-  component: __404,
+  component: NotFound,
 });
-
-function __404() {
-  return (
-    <div>
-      <h1>404 🐝</h1>
-      <Link to={"/"}>Home Page</Link>
-    </div>
-  );
-}

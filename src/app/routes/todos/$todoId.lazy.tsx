@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Todo } from "@pages/todo";
+
+import { Todo } from "@pages";
 
 export const Route = createFileRoute("/todos/$todoId")({
   component: TodoRouteComponent,

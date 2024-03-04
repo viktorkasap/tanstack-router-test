@@ -1,16 +1,9 @@
-import { createLazyFileRoute, Link } from "@tanstack/react-router";
+import { createLazyFileRoute } from "@tanstack/react-router";
+
+import { About } from "@pages";
 
 export const Route = createLazyFileRoute("/about/")({
-  component: AboutLazy,
+  component: About,
   pendingComponent: () => <div>Pending About ...</div>,
   notFoundComponent: () => <div>No Found the About</div>,
 });
-
-function AboutLazy() {
-  return (
-    <div>
-      <h1>About Page</h1>
-      <Link to={"/"}>Home page</Link>
-    </div>
-  );
-}

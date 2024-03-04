@@ -1,0 +1,1 @@
+export { BasicTemplate } from "./BasicTemplate";

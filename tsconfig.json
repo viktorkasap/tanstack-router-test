@@ -3,8 +3,8 @@
     "paths": {
       "@app": ["./src/app"],
       "@processes/*": ["./src/processes/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@widgets/*": ["./src/widgets/*"],
+      "@pages": ["./src/pages"],
+      "@widgets": ["./src/widgets"],
       "@features/*": ["./src/features/*"],
       "@shared/*": ["./src/shared/*"],
       "@entities/*": ["./src/entities/*"],
