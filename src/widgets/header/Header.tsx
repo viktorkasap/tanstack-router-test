@@ -1,11 +1,13 @@
-import { Header as HeaderLayout } from "@shared/ui";
+import { Container, Header as HeaderLayout } from "@shared/ui";
 
 import { Navigation } from "./ui";
 
 export function Header() {
   return (
     <HeaderLayout>
-      <Navigation />
+      <Container>
+        <Navigation />
+      </Container>
     </HeaderLayout>
   );
 }

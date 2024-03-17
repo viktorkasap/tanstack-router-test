@@ -1,7 +1,12 @@
-import { PropsWithChildren } from "react";
+import { Container, Main as MainUi } from "@shared/ui";
+import { Outlet } from "@tanstack/react-router";
 
-import { Main as MainLayout } from "@shared/ui";
-
-export function Main({ children }: PropsWithChildren) {
-  return <MainLayout>{children}</MainLayout>;
+export function Main() {
+  return (
+    <MainUi>
+      <Container>
+        <Outlet />
+      </Container>
+    </MainUi>
+  );
 }
