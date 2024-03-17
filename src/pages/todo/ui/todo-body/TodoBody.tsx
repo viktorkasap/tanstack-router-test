@@ -1,13 +1,13 @@
 import { TodoId } from "@shared/types";
 
-import { useTodo } from "./hooks";
+import { useQueryTodo } from "./api";
 
 interface TodoBodyProps {
   todoId: TodoId;
 }
 
 export function TodoBody({ todoId }: TodoBodyProps) {
-  const { data, isError, error, isLoading } = useTodo({ todoId });
+  const { data, isError, error, isLoading } = useQueryTodo({ todoId });
 
   if (isError) {
     return (

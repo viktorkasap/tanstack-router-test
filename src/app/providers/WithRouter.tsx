@@ -2,6 +2,7 @@ import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { routeTree } from "./routeTree.gen";
+import { useUser } from "@entities/user";
 
 declare module "@tanstack/react-router" {
   interface Register {
@@ -15,9 +16,11 @@ const router = createRouter({
 });
 
 export function WithRouter() {
+  const user = useUser();
+
   return (
     <>
-      <RouterProvider router={router} />
+      <RouterProvider router={router} context={{ user }} />
       <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
     </>
   );

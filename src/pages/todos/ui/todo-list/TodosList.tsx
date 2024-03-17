@@ -1,9 +1,9 @@
 import { Link } from "@tanstack/react-router";
 
-import { useTodos } from "./hooks";
+import { useQueryTodos } from "./api";
 
 export const TodosList = () => {
-  const { data, isError, error, isLoading } = useTodos();
+  const { data, isError, error, isLoading } = useQueryTodos();
 
   if (isError) {
     return (
