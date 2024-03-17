@@ -14,7 +14,9 @@ export const Route = createLazyFileRoute("/posts/")({
 function Posts() {
   return (
     <div>
-      <h1>Posts Index Page</h1>
+      <div className="pb-10">
+        <h1>Posts Index Page</h1>
+      </div>
       <Link to={"/posts/$postId"} params={{ postId: "1" }}>
         Post #1
       </Link>

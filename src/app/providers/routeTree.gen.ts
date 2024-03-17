@@ -18,6 +18,8 @@ import { Route as PostsPostIdImport } from './../routes/posts/$postId'
 
 // Create Virtual Routes
 
+const SignInLazyImport = createFileRoute('/sign-in')()
+const DashboardLazyImport = createFileRoute('/dashboard')()
 const IndexLazyImport = createFileRoute('/')()
 const TodosIndexLazyImport = createFileRoute('/todos/')()
 const PostsIndexLazyImport = createFileRoute('/posts/')()
@@ -25,6 +27,16 @@ const AboutIndexLazyImport = createFileRoute('/about/')()
 const TodosTodoIdLazyImport = createFileRoute('/todos/$todoId')()
 
 // Create/Update Routes
+
+const SignInLazyRoute = SignInLazyImport.update({
+  path: '/sign-in',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./../routes/sign-in.lazy').then((d) => d.Route))
+
+const DashboardLazyRoute = DashboardLazyImport.update({
+  path: '/dashboard',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./../routes/dashboard.lazy').then((d) => d.Route))
 
 const Route = Import.update({
   path: '/*',
@@ -81,6 +93,14 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Import
       parentRoute: typeof rootRoute
     }
+    '/dashboard': {
+      preLoaderRoute: typeof DashboardLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/sign-in': {
+      preLoaderRoute: typeof SignInLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/posts/$postId': {
       preLoaderRoute: typeof PostsPostIdImport
       parentRoute: typeof rootRoute
@@ -109,6 +129,8 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
   Route,
+  DashboardLazyRoute,
+  SignInLazyRoute,
   PostsPostIdRoute,
   TodosTodoIdLazyRoute,
   AboutIndexLazyRoute,

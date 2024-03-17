@@ -1,9 +1,9 @@
 export function TodosHeader() {
   return (
-    <div>
+    <div className="pb-10">
       <h1>Todos</h1>
 
-      <hr />
+      <hr className="mt-5" />
     </div>
   );
 }
