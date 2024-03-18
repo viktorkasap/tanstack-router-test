@@ -1,9 +1,14 @@
-import { createRootRoute } from "@tanstack/react-router";
+import { createRootRouteWithContext } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
 import { BasicTemplate } from "@pages";
+import { User } from "@entities/user";
 
-export const Route = createRootRoute({
+type RouterContext = {
+  user: User | null;
+};
+
+export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootRoute,
 });
 

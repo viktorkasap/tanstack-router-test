@@ -1,3 +1,8 @@
+// TODO:
+//    1) добавить форму
+//    2) добавить запрос на получение данных пользователя
+//    3) сохранить токен в localStorage
+
 export function SignIn() {
   return <p>Sign In</p>;
 }
