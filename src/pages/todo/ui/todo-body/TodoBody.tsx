@@ -11,14 +11,14 @@ export function TodoBody({ todoId }: TodoBodyProps) {
 
   if (isError) {
     return (
-      <p>
+      <p className="pt-10">
         ⚠️ Error: <b>{error.message}</b>
       </p>
     );
   }
 
   if (isLoading) {
-    return <p>🌀 Loading Todo Content ...</p>;
+    return <p className="pt-10">🌀 Loading Todo Content ...</p>;
   }
 
   if (!data) {
@@ -26,7 +26,7 @@ export function TodoBody({ todoId }: TodoBodyProps) {
   }
 
   return (
-    <div>
+    <div className="pt-10">
       <p>
         <b>Todo Content:</b> {data.todo}
       </p>

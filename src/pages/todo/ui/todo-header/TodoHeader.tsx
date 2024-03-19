@@ -1,4 +1,4 @@
-import { TodoId } from "@pages/todo/types";
+import { TodoId } from "@shared/types";
 
 interface TodoHeaderProps {
   todoId: TodoId;
@@ -9,7 +9,7 @@ export function TodoHeader({ todoId }: TodoHeaderProps) {
     <div>
       <h1>Todo {todoId}</h1>
 
-      <hr />
+      <hr className="mt-10" />
     </div>
   );
 }
