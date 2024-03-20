@@ -1,27 +1,11 @@
-// TODO:
-//    1) добавить форму
-//    2) добавить запрос на получение данных пользователя
-//    3) сохранить токен в localStorage
+import { Form, Header, Note } from "./ui";
 
 export function SignIn() {
-  return <p>Sign In</p>;
+  return (
+    <div>
+      <Header />
+      <Note />
+      <Form />
+    </div>
+  );
 }
-
-/*
-const signInRequest = ({ email, password, rememberMe }: SignInProps) =>
-  apiRequest({ url: API.AUTH.SIGN_IN, data: { email, password, remember: rememberMe } });
-
-export const useSignIn = () => {
-  const queryClient = useQueryClient();
-  const { setCurrentUserId } = useUserLocalStorage();
-
-  return useMutation<UserPropsResponse, ErrorType, SignInProps>({
-    networkMode: 'offlineFirst',
-    mutationFn: signInRequest,
-    onSuccess: (user) => {
-      setCurrentUserId(user.data.id);
-      queryClient.setQueryData([QUERY_KEY.USER], user);
-    },
-  });
-};
- */
