@@ -21,6 +21,8 @@ const router = createRouter({
 export function WithRouter() {
   const user = useUser();
 
+  console.log("[WithRouter user]", user);
+
   return (
     <>
       <RouterProvider router={router} context={{ user }} />

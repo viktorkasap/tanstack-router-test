@@ -1,7 +1,5 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
-// import { Dashboard } from "@pages";
-
 export const Route = createFileRoute("/dashboard")({
   beforeLoad: ({ context }) => {
     console.log("dashboard-context", context);

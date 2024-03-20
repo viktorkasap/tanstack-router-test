@@ -16,6 +16,7 @@ export function Navigation() {
         <li>
           <Link to={"/todos"}>Todos</Link>
         </li>
+        {/* TODO заменить Sign-In на Sign-out после авторизации */}
         <li>
           <Link to={"/sign-in"}>Sign-In</Link>
         </li>
