@@ -1,12 +1,19 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { localStorage } from "@shared/lib";
 
 export const Route = createFileRoute("/sign-in")({
-  beforeLoad: ({ context }) => {
-    console.log("[SING-IN]:", context);
+  beforeLoad: ({ context: { queryClient }, params, search }) => {
+    const token = localStorage.getValue("token");
+    const user = queryClient.getQueryData(["user", token]);
 
-    if (context.user) {
+    console.log("PARAMS", params, search);
+    console.log("[SING-IN]:", token, user);
+
+    const redirectTo = (search as { redirect?: string }).redirect || "/";
+
+    if (user) {
       throw redirect({
-        to: "/dashboard",
+        to: redirectTo, // FIXME неправильно работает редирект
       });
     }
   },
