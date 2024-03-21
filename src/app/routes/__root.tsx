@@ -13,6 +13,7 @@ type RouterContext = {
 export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootRoute,
   errorComponent: ({ error }) => <>Error: {(error as ApiError).message}</>,
+  pendingComponent: () => <h4>Checking Authorization...</h4>,
 
   // loader: ({ context: { queryClient } }) =>
   //   queryClient.ensureQueryData(userQueryOptions()),
@@ -22,7 +23,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       // * return нужен чтобы отобразить ошибку в errorComponent
       // * если не сделать return то errorComponent не будет отображен
       // return queryClient.ensureQueryData(userQueryOptions());
-      queryClient.ensureQueryData(userQueryOptions());
+      return queryClient.ensureQueryData(userQueryOptions());
     } catch (err) {
       console.log("[ROOT ERROR]:", err);
     }

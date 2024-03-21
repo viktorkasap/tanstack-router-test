@@ -6,10 +6,6 @@ import { localStorage } from "@shared/lib";
 export const userQueryOptions = () => {
   const token = localStorage.getValue("token");
 
-  // if (!token) {
-  //   return false;
-  // }
-
   return queryOptions({
     queryKey: ["user", token],
     queryFn: () => fetchUser({ token }),
