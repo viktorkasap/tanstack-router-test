@@ -9,7 +9,7 @@ export const fetchSignInUser = async ({ username, password }: SignInProps) => {
       {
         username,
         password,
-        expiresInMins: 1,
+        expiresInMins: 10,
       },
       {
         headers: { "Content-Type": "application/json" },

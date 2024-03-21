@@ -1,9 +1,5 @@
-import { WithQueryClient, WithRouter } from "./providers";
+import { WithRouter } from "./providers";
 
 export function App() {
-  return (
-    <WithQueryClient>
-      <WithRouter />
-    </WithQueryClient>
-  );
+  return <WithRouter />;
 }
