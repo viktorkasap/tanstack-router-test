@@ -32,6 +32,7 @@ export const InputPassword = ({
           value={password}
           onChange={onChange}
           disabled={isPending}
+          autoComplete="current-password"
         />
       </div>
     </div>

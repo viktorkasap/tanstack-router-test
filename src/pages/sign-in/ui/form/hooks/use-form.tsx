@@ -7,7 +7,6 @@ import {
 } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { useSignIn } from "../api";
-import { useNavigate } from "@tanstack/react-router";
 
 type UpdateFunctions = {
   username: Dispatch<SetStateAction<string>>;
@@ -19,12 +18,7 @@ export const useForm = () => {
   const [password, setPassword] = useState("0lelplR");
 
   const signIn = useSignIn();
-  const navigate = useNavigate();
   const [, setToken] = useLocalStorage("token", "");
-
-  if (signIn.isSuccess) {
-    navigate({ to: "/dashboard" });
-  }
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -41,6 +35,7 @@ export const useForm = () => {
     e.preventDefault();
 
     if (!signIn.isPending) {
+      // signIn.mutate({ username, password });
       signIn.mutateAsync({ username, password }).then(({ token }) => {
         setToken(token);
       });

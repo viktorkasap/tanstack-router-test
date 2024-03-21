@@ -30,6 +30,7 @@ export const InputUserName = ({
           value={username}
           onChange={onChange}
           disabled={isPending}
+          autoComplete="username"
         />
       </div>
     </div>
